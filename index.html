@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking Dashboard</title>
+    <!-- Link the CSS file -->
+    <link rel="stylesheet" href="index.css">
+    <!-- ApexCharts library -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+
+    <div class="date-selector">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate">
+        <button onclick="updateCharts()">Filter Data</button>
+    </div>
+
+    <div class="dashboard-container">
+        <div id="timeSeriesChart" class="chart-container"></div>
+        <div id="columnChart" class="chart-container"></div>
+        <div id="sparklineAdult" class="chart-container"></div>
+        <div id="sparklineChildren" class="chart-container"></div>
+    </div>
+
+    <input type="file" id="csvFile" />
+    <button id="processCSV">Process CSV</button>
+
+    <!-- Link the external JavaScript file -->
+    <script src="dashboard.js" defer></script>
+
+    <script>
+        document.getElementById('processCSV').addEventListener('click', function() {
+            const fileInput = document.getElementById('csvFile');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const csvContent = e.target.result;
+
+                    // Parse CSV content to an object
+                    Papa.parse(csvContent, {
+                        header: true, // Converts first row to keys
+                        complete: function(results) {
+                            console.log('Parsed CSV Object:', results.data); // Array of objects
+                            // You can call updateCharts or process the data here
+                        },
+                        error: function(error) {
+                            console.error("Error parsing CSV:", error);
+                        }
+                    });
+                };
+
+                reader.readAsText(file); // Read the file as text
+            } else {
+                console.log("Please upload a CSV file");
+            }
+        });
+    </script>
+
+</body>
+</html>
