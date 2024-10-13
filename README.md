@@ -51,7 +51,7 @@ Fork the repository.
 Create a new branch for your feature or bug fix.
 Commit your changes and push to your branch.
 Open a pull request detailing your changes.
-**License**
+****License****
 This project is licensed under the MIT License - see the LICENSE file for details.
-**Acknowledgments**
+****Acknowledgments****
 Thanks to the authors of ApexCharts and PapaParse for their libraries, which greatly simplify charting and CSV parsing.
